@@ -357,25 +357,22 @@ section h2 {
     padding: 30px;
     border-radius: 25px;
     box-shadow: var(--shadow);
+    display: flex;
+    gap: 20px;
 }
 
 .kana-display {
     display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
-}
-
-.kana-column {
-    display: flex;
     flex-direction: column;
     gap: 12px;
+    flex: 1;
 }
 
-.kana-column.modifiers {
-    justify-content: flex-end;
-    gap: 8px;
+.kana-row {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 /* ========================================
@@ -408,14 +405,16 @@ section h2 {
     transform: translateY(-1px);
 }
 
-.kana-spacer {
-    width: 70px;
-    height: 70px;
-}
-
 /* ========================================
-   修飾ボタン
+   修飾ボタン（縦配置）
    ======================================== */
+
+.modifiers-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-start;
+}
 
 .modifier-btn {
     width: 70px;
@@ -597,27 +596,29 @@ section h2 {
 }
 
 .play-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     flex: 1;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .play-header {
     text-align: center;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 25px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-    border-radius: 20px;
+    border-radius: 25px;
     box-shadow: var(--shadow);
 }
 
 .play-header h1 {
     font-size: 2em;
     color: white;
-    margin-bottom: 10px;
+    margin-bottom: 0;
+    font-weight: bold;
 }
 
 .play-instruction {
@@ -632,24 +633,25 @@ section h2 {
 .cards-container {
     background: white;
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 25px;
     box-shadow: var(--shadow);
     flex: 1;
     position: relative;
-    min-height: 400px;
+    min-height: 500px;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .card {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     background: linear-gradient(135deg, var(--secondary-color) 0%, #FFE0B2 100%);
     border: 3px solid #FF9800;
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2em;
+    font-size: 2.2em;
     font-weight: bold;
     color: var(--text-color);
     cursor: grab;
@@ -657,6 +659,7 @@ section h2 {
     position: absolute;
     touch-action: none;
     user-select: none;
+    transition: box-shadow 0.2s ease;
 }
 
 .card:hover {
@@ -789,15 +792,25 @@ section h2 {
    ======================================== */
 
 @media (max-width: 1024px) {
-    .kana-display {
-        gap: 10px;
+    .kana-section {
+        flex-direction: column;
     }
 
     .kana-card,
     .modifier-btn {
-        width: 60px;
-        height: 60px;
+        width: 65px;
+        height: 65px;
         font-size: 1.4em;
+    }
+
+    .cards-container {
+        min-height: 450px;
+    }
+
+    .card {
+        width: 80px;
+        height: 80px;
+        font-size: 2em;
     }
 }
 
@@ -837,6 +850,11 @@ section h2 {
         width: 100%;
     }
 
+    .cards-container {
+        min-height: 400px;
+        padding: 20px;
+    }
+
     .card {
         width: 70px;
         height: 70px;
@@ -850,5 +868,9 @@ section h2 {
 
     .answer-display {
         font-size: 2.5em;
+    }
+
+    .play-header h1 {
+        font-size: 1.4em;
     }
 }
