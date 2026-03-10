@@ -371,7 +371,8 @@ section h2 {
 .kana-row {
     display: flex;
     gap: 12px;
-    justify-content: flex-start;
+flex-direction: row-reverse;   /* 1. 左から右ではなく、右から左に並べる */
+    justify-content: flex-end;     /* 2. 全体を右側に寄せる */
     flex-wrap: wrap;
 }
 
