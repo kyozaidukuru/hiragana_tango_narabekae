@@ -14,87 +14,76 @@
         </div>
 
         <div class="select-content">
-            <!-- 五十音表 -->
             <div class="kana-section">
-<div class="kana-display">
-    <div class="kana-row">
-        <button class="kana-card" data-char="あ">あ</button>
-        <button class="kana-card" data-char="か">か</button>
-        <button class="kana-card" data-char="さ">さ</button>
-        <button class="kana-card" data-char="た">た</button>
-        <button class="kana-card" data-char="な">な</button>
-        <button class="kana-card" data-char="は">は</button>
-        <button class="kana-card" data-char="ま">ま</button>
-        <button class="kana-card" data-char="や">や</button>
-        <button class="kana-card" data-char="ら">ら</button>
-        <button class="kana-card" data-char="わ">わ</button>
-        <button class="kana-card" data-char="ん">ん</button>
-    </div>
-
-    <div class="kana-row">
-        <button class="kana-card" data-char="い">い</button>
-        <button class="kana-card" data-char="き">き</button>
-        <button class="kana-card" data-char="し">し</button>
-        <button class="kana-card" data-char="ち">ち</button>
-        <button class="kana-card" data-char="に">に</button>
-        <button class="kana-card" data-char="ひ">ひ</button>
-        <button class="kana-card" data-char="み">み</button>
-        <div class="empty-card"></div> <button class="kana-card" data-char="り">り</button>
-        <div class="empty-card"></div> <div class="empty-card"></div> </div>
-
-    <div class="kana-row">
-        <button class="kana-card" data-char="う">う</button>
-        <button class="kana-card" data-char="く">く</button>
-        <button class="kana-card" data-char="す">す</button>
-        <button class="kana-card" data-char="つ">つ</button>
-        <button class="kana-card" data-char="ぬ">ぬ</button>
-        <button class="kana-card" data-char="ふ">ふ</button>
-        <button class="kana-card" data-char="む">む</button>
-        <button class="kana-card" data-char="ゆ">ゆ</button>
-        <button class="kana-card" data-char="る">る</button>
-        <div class="empty-card"></div>
-        <div class="empty-card"></div>
-    </div>
-
-    <div class="kana-row">
-        <button class="kana-card" data-char="え">え</button>
-        <button class="kana-card" data-char="け">け</button>
-        <button class="kana-card" data-char="せ">せ</button>
-        <button class="kana-card" data-char="て">て</button>
-        <button class="kana-card" data-char="ね">ね</button>
-        <button class="kana-card" data-char="へ">へ</button>
-        <button class="kana-card" data-char="め">め</button>
-        <div class="empty-card"></div>
-        <button class="kana-card" data-char="れ">れ</button>
-        <div class="empty-card"></div>
-        <div class="empty-card"></div>
-    </div>
-
-    <div class="kana-row">
-        <button class="kana-card" data-char="お">お</button>
-        <button class="kana-card" data-char="こ">こ</button>
-        <button class="kana-card" data-char="そ">そ</button>
-        <button class="kana-card" data-char="と">と</button>
-        <button class="kana-card" data-char="の">の</button>
-        <button class="kana-card" data-char="ほ">ほ</button>
-        <button class="kana-card" data-char="も">も</button>
-        <button class="kana-card" data-char="よ">よ</button>
-        <button class="kana-card" data-char="ろ">ろ</button>
-        <button class="kana-card" data-char="を">を</button>
-        <div class="empty-card"></div>
-    </div>
-</div>
-                <!-- 修飾ボタン（ん字の左に縦配置） -->
-                <div class="modifiers-vertical">
-                    <button class="modifier-btn" id="toggleDakuten" title="濁音">゛</button>
-                    <button class="modifier-btn" id="toggleHandakuten" title="半濁音">゜</button>
-                    <button class="modifier-btn" id="toggleSmall" title="小文字">ぁ</button>
-                    <button class="modifier-btn" id="toggleKatakana" title="カタカナ">ア</button>
+                <div class="kana-display" id="hiraganaDisplay">
+                    <div class="kana-row">
+                        <button class="kana-card" data-char="あ">あ</button>
+                        <button class="kana-card" data-char="か">か</button>
+                        <button class="kana-card" data-char="さ">さ</button>
+                        <button class="kana-card" data-char="た">た</button>
+                        <button class="kana-card" data-char="な">な</button>
+                        <button class="kana-card" data-char="は">は</button>
+                        <button class="kana-card" data-char="ま">ま</button>
+                        <button class="kana-card" data-char="や">や</button>
+                        <button class="kana-card" data-char="ら">ら</button>
+                        <button class="kana-card" data-char="わ">わ</button>
+                        <button class="kana-card" data-char="ん">ん</button>
+                    </div>
+                    <div class="kana-row">
+                        <button class="kana-card" data-char="い">い</button>
+                        <button class="kana-card" data-char="き">き</button>
+                        <button class="kana-card" data-char="し">し</button>
+                        <button class="kana-card" data-char="チ">ち</button>
+                        <button class="kana-card" data-char="に">に</button>
+                        <button class="kana-card" data-char="ひ">ひ</button>
+                        <button class="kana-card" data-char="み">み</button>
+                        <div class="empty-card"></div>
+                        <button class="kana-card" data-char="り">り</button>
+                        <div class="empty-card"></div>
+                        <div class="empty-card"></div>
+                    </div>
+                    <div class="kana-row">
+                        <button class="kana-card" data-char="う">う</button>
+                        <button class="kana-card" data-char="く">く</button>
+                        <button class="kana-card" data-char="す">す</button>
+                        <button class="kana-card" data-char="つ">つ</button>
+                        <button class="kana-card" data-char="ぬ">ぬ</button>
+                        <button class="kana-card" data-char="ふ">ふ</button>
+                        <button class="kana-card" data-char="む">む</button>
+                        <button class="kana-card" data-char="ゆ">ゆ</button>
+                        <button class="kana-card" data-char="る">る</button>
+                        <div class="empty-card"></div>
+                        <div class="empty-card"></div>
+                    </div>
+                    <div class="kana-row">
+                        <button class="kana-card" data-char="え">え</button>
+                        <button class="kana-card" data-char="け">け</button>
+                        <button class="kana-card" data-char="せ">せ</button>
+                        <button class="kana-card" data-char="て">て</button>
+                        <button class="kana-card" data-char="ね">ね</button>
+                        <button class="kana-card" data-char="へ">へ</button>
+                        <button class="kana-card" data-char="め">め</button>
+                        <div class="empty-card"></div>
+                        <button class="kana-card" data-char="れ">れ</button>
+                        <div class="empty-card"></div>
+                        <div class="empty-card"></div>
+                    </div>
+                    <div class="kana-row">
+                        <button class="kana-card" data-char="お">お</button>
+                        <button class="kana-card" data-char="こ">こ</button>
+                        <button class="kana-card" data-char="そ">そ</button>
+                        <button class="kana-card" data-char="と">と</button>
+                        <button class="kana-card" data-char="の">の</button>
+                        <button class="kana-card" data-char="ほ">ほ</button>
+                        <button class="kana-card" data-char="も">も</button>
+                        <button class="kana-card" data-char="よ">よ</button>
+                        <button class="kana-card" data-char="ろ">ろ</button>
+                        <button class="kana-card" data-char="を">を</button>
+                        <div class="empty-card"></div>
+                    </div>
                 </div>
 
-                <!-- カタカナ五十音表（初期非表示） -->
                 <div class="kana-display" id="katakanaDisplay" style="display: none;">
-                    <!-- あ行 -->
                     <div class="kana-row">
                         <button class="kana-card" data-char="ア">ア</button>
                         <button class="kana-card" data-char="カ">カ</button>
@@ -108,8 +97,6 @@
                         <button class="kana-card" data-char="ワ">ワ</button>
                         <button class="kana-card" data-char="ン">ン</button>
                     </div>
-
-                    <!-- い行 -->
                     <div class="kana-row">
                         <button class="kana-card" data-char="イ">イ</button>
                         <button class="kana-card" data-char="キ">キ</button>
@@ -118,12 +105,11 @@
                         <button class="kana-card" data-char="ニ">ニ</button>
                         <button class="kana-card" data-char="ヒ">ヒ</button>
                         <button class="kana-card" data-char="ミ">ミ</button>
-                        <button class="kana-card" data-char="ユ">ユ</button>
+                        <div class="empty-card"></div>
                         <button class="kana-card" data-char="リ">リ</button>
-                        <button class="kana-card" data-char="ヲ">ヲ</button>
+                        <div class="empty-card"></div>
+                        <div class="empty-card"></div>
                     </div>
-
-                    <!-- う行 -->
                     <div class="kana-row">
                         <button class="kana-card" data-char="ウ">ウ</button>
                         <button class="kana-card" data-char="ク">ク</button>
@@ -134,9 +120,9 @@
                         <button class="kana-card" data-char="ム">ム</button>
                         <button class="kana-card" data-char="ユ">ユ</button>
                         <button class="kana-card" data-char="ル">ル</button>
+                        <div class="empty-card"></div>
+                        <div class="empty-card"></div>
                     </div>
-
-                    <!-- え行 -->
                     <div class="kana-row">
                         <button class="kana-card" data-char="エ">エ</button>
                         <button class="kana-card" data-char="ケ">ケ</button>
@@ -145,11 +131,11 @@
                         <button class="kana-card" data-char="ネ">ネ</button>
                         <button class="kana-card" data-char="ヘ">ヘ</button>
                         <button class="kana-card" data-char="メ">メ</button>
-                        <button class="kana-card" data-char="ネ">ネ</button>
+                        <div class="empty-card"></div>
                         <button class="kana-card" data-char="レ">レ</button>
+                        <div class="empty-card"></div>
+                        <div class="empty-card"></div>
                     </div>
-
-                    <!-- お行 -->
                     <div class="kana-row">
                         <button class="kana-card" data-char="オ">オ</button>
                         <button class="kana-card" data-char="コ">コ</button>
@@ -160,10 +146,18 @@
                         <button class="kana-card" data-char="モ">モ</button>
                         <button class="kana-card" data-char="ヨ">ヨ</button>
                         <button class="kana-card" data-char="ロ">ロ</button>
+                        <button class="kana-card" data-char="ヲ">ヲ</button>
+                        <button class="kana-card" data-char="ー">ー</button>
                     </div>
                 </div>
 
-                <!-- カタカナ修飾ボタン -->
+                <div class="modifiers-vertical" id="hiraganaModifiers">
+                    <button class="modifier-btn" id="toggleDakuten" title="濁音">゛</button>
+                    <button class="modifier-btn" id="toggleHandakuten" title="半濁音">゜</button>
+                    <button class="modifier-btn" id="toggleSmall" title="小文字">ぁ</button>
+                    <button class="modifier-btn" id="toggleKatakana" title="カタカナ">ア</button>
+                </div>
+
                 <div class="modifiers-vertical" id="katakanaModifiers" style="display: none;">
                     <button class="modifier-btn" id="toggleDakutenKata" title="濁音">゛</button>
                     <button class="modifier-btn" id="toggleHandakutenKata" title="半濁音">゜</button>
@@ -172,27 +166,23 @@
                 </div>
             </div>
 
-            <!-- 選択済み文字表示（五十音表の下） -->
             <div class="selected-word-section">
                 <h3>えらんだもじ</h3>
                 <div class="selected-cards-display" id="selectedCardsDisplay"></div>
             </div>
 
-            <!-- 操作ボタン -->
             <div class="button-controls">
                 <button class="control-btn btn-delete-one" id="deleteOneBtn">１もじけす</button>
                 <button class="control-btn btn-delete-all" id="deleteAllBtn">ぜんぶけす</button>
                 <button class="submit-btn" id="submitBtn" disabled>もんだいをだす</button>
             </div>
 
-            <!-- トップに戻るリンク -->
             <div class="back-link-section">
                 <a href="index.html" class="back-link">← もどる</a>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
     <script>
         let selectedCharacters = [];
         let isKatakana = false;
@@ -200,199 +190,116 @@
         let isHandakuten = false;
         let isSmall = false;
 
-        // 濁音・半濁音マッピング
-        const dakuntenMap = {
-            'か': 'が', 'き': 'ぎ', 'く': 'ぐ', 'け': 'げ', 'こ': 'ご',
-            'さ': 'ざ', 'し': 'じ', 'す': 'ず', 'せ': 'ぜ', 'そ': 'ぞ',
-            'た': 'だ', 'ち': 'ぢ', 'つ': 'づ', 'て': 'で', 'と': 'ど',
-            'は': 'ば', 'ひ': 'び', 'ふ': 'ぶ', 'へ': 'べ', 'ほ': 'ぼ'
-        };
+        // マッピングデータ
+        const dakuntenMap = { 'あ':'あ','い':'い','う':'う','え':'え','お':'お','か':'が','き':'ぎ','く':'ぐ','け':'げ','こ':'ご','さ':'ざ','し':'じ','す':'ず','せ':'ぜ','そ':'ぞ','た':'だ','ち':'ぢ','つ':'づ','て':'で','と':'ど','な':'な','に':'に','ぬ':'ぬ','ね':'ね','の':'の','は':'ば','ひ':'び','ふ':'ぶ','へ':'べ','ほ':'ぼ','ま':'ま','み':'み','む':'む','め':'め','も':'も','や':'や','ゆ':'ゆ','よ':'よ','ら':'ら','り':'り','る':'る','れ':'れ','ろ':'ろ','わ':'わ','を':'を','ん':'ん' };
+        const handakuntenMap = { 'は':'ぱ','ひ':'ぴ','ふ':'ぷ','へ':'ぺ','ほ':'ぽ' };
+        const smallMap = { 'あ':'ぁ','い':'ぃ','う':'ぅ','え':'ぇ','お':'ぉ','や':'ゃ','ゆ':'ゅ','よ':'ょ','わ':'ゎ','つ':'っ' };
+        
+        const katakanaDakuntenMap = { 'ア':'ア','イ':'イ','ウ':'ウ','エ':'エ','オ':'オ','カ':'ガ','キ':'ギ','ク':'グ','ケ':'ゲ','コ':'ゴ','サ':'ザ','シ':'ジ','ス':'ズ','セ':'ゼ','ソ':'ゾ','タ':'ダ','チ':'ヂ','ツ':'ヅ','テ':'デ','ト':'ド','ナ':'ナ','ニ':'ニ','ヌ':'ヌ','ネ':'ネ','ノ':'ノ','ハ':'バ','ヒ':'ビ','フ':'ブ','ヘ':'ベ','ホ':'ボ','マ':'マ','ミ':'ミ','ム':'ム','メ':'メ','モ':'モ','ヤ':'ヤ','ユ':'ユ','ヨ':'ヨ','ラ':'ラ','リ':'リ','ル':'ル','レ':'レ','ロ':'ロ','ワ':'ワ','ヲ':'ヲ','ン':'ン','ー':'ー' };
+        const katakanaHandakuntenMap = { 'ハ':'パ','ヒ':'ピ','フ':'プ','ヘ':'ペ','ホ':'ポ' };
+        const katakanaSmallMap = { 'ア':'ァ','イ':'ィ','ウ':'ゥ','エ':'ェ','オ':'ォ','ヤ':'ャ','ユ':'ュ','ヨ':'ョ','ワ':'ヮ','ツ':'ッ' };
 
-        const handakuntenMap = {
-            'は': 'ぱ', 'ひ': 'ぴ', 'ふ': 'ぷ', 'へ': 'ぺ', 'ほ': 'ぽ'
-        };
-
-        const smallMap = {
-            'あ': 'ぁ', 'い': 'ぃ', 'う': 'ぅ', 'え': 'ぇ', 'お': 'ぉ',
-            'や': 'ゃ', 'ゆ': 'ゅ', 'よ': 'ょ',
-            'わ': 'ゎ', 'つ': 'っ'
-        };
-
-        const katakanaDakuntenMap = {
-            'カ': 'ガ', 'キ': 'ギ', 'ク': 'グ', 'ケ': 'ゲ', 'コ': 'ゴ',
-            'サ': 'ザ', 'シ': 'ジ', 'ス': 'ズ', 'セ': 'ゼ', 'ソ': 'ゾ',
-            'タ': 'ダ', 'チ': 'ヂ', 'ツ': 'ヅ', 'テ': 'デ', 'ト': 'ド',
-            'ハ': 'バ', 'ヒ': 'ビ', 'フ': 'ブ', 'ヘ': 'ベ', 'ホ': 'ボ'
-        };
-
-        const katakanaHandakuntenMap = {
-            'ハ': 'パ', 'ヒ': 'ピ', 'フ': 'プ', 'ヘ': 'ペ', 'ホ': 'ポ'
-        };
-
-        const katakanaSmallMap = {
-            'ア': 'ァ', 'イ': 'ィ', 'ウ': 'ゥ', 'エ': 'ェ', 'オ': 'ォ',
-            'ヤ': 'ャ', 'ユ': 'ュ', 'ヨ': 'ョ',
-            'ワ': 'ヮ', 'ツ': 'ッ'
-        };
-
-        // 初期化
         function init() {
             setupKanaCardListeners();
             setupControlButtons();
             updateDisplay();
         }
 
-        // 五十音カードのイベントリスナー設定
         function setupKanaCardListeners() {
-            document.querySelectorAll('.kana-card').forEach(btn => {
-                btn.addEventListener('click', () => selectCharacter(btn.dataset.char));
+            // イベントデリゲーションを使用して、動的に表示されるボタンにも対応
+            document.body.addEventListener('click', (e) => {
+                if (e.target.classList.contains('kana-card')) {
+                    selectCharacter(e.target.dataset.char);
+                }
             });
         }
 
-        // 制御ボタンのイベントリスナー設定
         function setupControlButtons() {
-            // ひらがな修飾ボタン
-            document.getElementById('toggleDakuten').addEventListener('click', () => {
-                isDakuten = !isDakuten;
-                isHandakuten = false;
-                updateModifierButtons();
-            });
+            const safeAdd = (id, fn) => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('click', fn);
+            };
 
-            document.getElementById('toggleHandakuten').addEventListener('click', () => {
-                isHandakuten = !isHandakuten;
-                isDakuten = false;
-                updateModifierButtons();
-            });
-
-            document.getElementById('toggleSmall').addEventListener('click', () => {
-                isSmall = !isSmall;
-                updateModifierButtons();
-            });
-
-            document.getElementById('toggleKatakana').addEventListener('click', () => {
-                isKatakana = true;
-                isDakuten = false;
-                isHandakuten = false;
-                isSmall = false;
-                document.querySelectorAll('.kana-display').forEach(el => el.style.display = 'none');
+            safeAdd('toggleDakuten', () => { isDakuten = !isDakuten; isHandakuten = false; updateModifierButtons(); });
+            safeAdd('toggleHandakuten', () => { isHandakuten = !isHandakuten; isDakuten = false; updateModifierButtons(); });
+            safeAdd('toggleSmall', () => { isSmall = !isSmall; updateModifierButtons(); });
+            safeAdd('toggleKatakana', () => {
+                isKatakana = true; resetModifiers();
+                document.getElementById('hiraganaDisplay').style.display = 'none';
                 document.getElementById('katakanaDisplay').style.display = 'flex';
-                document.querySelectorAll('.modifiers-vertical').forEach(el => el.style.display = 'none');
+                document.getElementById('hiraganaModifiers').style.display = 'none';
                 document.getElementById('katakanaModifiers').style.display = 'flex';
                 updateModifierButtons();
             });
 
-            // カタカナ修飾ボタン
-            document.getElementById('toggleDakutenKata').addEventListener('click', () => {
-                isDakuten = !isDakuten;
-                isHandakuten = false;
-                updateModifierButtons();
-            });
-
-            document.getElementById('toggleHandakutenKata').addEventListener('click', () => {
-                isHandakuten = !isHandakuten;
-                isDakuten = false;
-                updateModifierButtons();
-            });
-
-            document.getElementById('toggleSmallKata').addEventListener('click', () => {
-                isSmall = !isSmall;
-                updateModifierButtons();
-            });
-
-            document.getElementById('toggleHiragana').addEventListener('click', () => {
-                isKatakana = false;
-                isDakuten = false;
-                isHandakuten = false;
-                isSmall = false;
-                document.querySelectorAll('.kana-display').forEach(el => el.style.display = 'flex');
+            safeAdd('toggleDakutenKata', () => { isDakuten = !isDakuten; isHandakuten = false; updateModifierButtons(); });
+            safeAdd('toggleHandakutenKata', () => { isHandakuten = !isHandakuten; isDakuten = false; updateModifierButtons(); });
+            safeAdd('toggleSmallKata', () => { isSmall = !isSmall; updateModifierButtons(); });
+            safeAdd('toggleHiragana', () => {
+                isKatakana = false; resetModifiers();
+                document.getElementById('hiraganaDisplay').style.display = 'flex';
                 document.getElementById('katakanaDisplay').style.display = 'none';
-                document.querySelectorAll('.modifiers-vertical').forEach(el => el.style.display = 'flex');
+                document.getElementById('hiraganaModifiers').style.display = 'flex';
                 document.getElementById('katakanaModifiers').style.display = 'none';
                 updateModifierButtons();
             });
 
-            // 削除ボタン
-            document.getElementById('deleteOneBtn').addEventListener('click', () => {
-                selectedCharacters.pop();
-                updateDisplay();
-            });
-
-            document.getElementById('deleteAllBtn').addEventListener('click', () => {
-                selectedCharacters = [];
-                updateDisplay();
-            });
-
-            // 送信ボタン
-            document.getElementById('submitBtn').addEventListener('click', () => {
+            safeAdd('deleteOneBtn', () => { selectedCharacters.pop(); updateDisplay(); });
+            safeAdd('deleteAllBtn', () => { selectedCharacters = []; updateDisplay(); });
+            safeAdd('submitBtn', () => {
                 sessionStorage.setItem('selectedWord', JSON.stringify(selectedCharacters));
                 window.location.href = 'play.html';
             });
         }
 
-        // 文字を選択
+        function resetModifiers() {
+            isDakuten = false; isHandakuten = false; isSmall = false;
+        }
+
         function selectCharacter(char) {
             let selectedChar = char;
-
-            // 修飾を適用
-            if (isDakuten) {
-                if (isKatakana) {
-                    selectedChar = katakanaDakuntenMap[char] || char;
-                } else {
-                    selectedChar = dakuntenMap[char] || char;
+            if (char !== 'ー') { // 長音符には修飾を適用しない
+                if (isDakuten) {
+                    selectedChar = (isKatakana ? katakanaDakuntenMap[char] : dakuntenMap[char]) || char;
+                } else if (isHandakuten) {
+                    selectedChar = (isKatakana ? katakanaHandakuntenMap[char] : handakuntenMap[char]) || char;
                 }
-            } else if (isHandakuten) {
-                if (isKatakana) {
-                    selectedChar = katakanaHandakuntenMap[char] || char;
-                } else {
-                    selectedChar = handakuntenMap[char] || char;
+                if (isSmall) {
+                    selectedChar = (isKatakana ? katakanaSmallMap[selectedChar] : smallMap[selectedChar]) || selectedChar;
                 }
             }
-
-            if (isSmall) {
-                if (isKatakana) {
-                    selectedChar = katakanaSmallMap[selectedChar] || selectedChar;
-                } else {
-                    selectedChar = smallMap[selectedChar] || selectedChar;
-                }
-            }
-
             selectedCharacters.push(selectedChar);
             updateDisplay();
-            isDakuten = false;
-            isHandakuten = false;
-            isSmall = false;
+            resetModifiers();
             updateModifierButtons();
         }
 
-        // 表示を更新
         function updateDisplay() {
-            const cardsContainer = document.getElementById('selectedCardsDisplay');
-            cardsContainer.innerHTML = '';
-
-            selectedCharacters.forEach((char) => {
+            const container = document.getElementById('selectedCardsDisplay');
+            container.innerHTML = '';
+            selectedCharacters.forEach(char => {
                 const card = document.createElement('div');
                 card.className = 'selected-word-card';
                 card.textContent = char;
-                cardsContainer.appendChild(card);
+                container.appendChild(card);
             });
-
             document.getElementById('submitBtn').disabled = selectedCharacters.length === 0;
         }
 
-        // 修飾ボタンの表示を更新
         function updateModifierButtons() {
-            if (isKatakana) {
-                document.getElementById('toggleDakutenKata').classList.toggle('active', isDakuten);
-                document.getElementById('toggleHandakutenKata').classList.toggle('active', isHandakuten);
-                document.getElementById('toggleSmallKata').classList.toggle('active', isSmall);
-            } else {
-                document.getElementById('toggleDakuten').classList.toggle('active', isDakuten);
-                document.getElementById('toggleHandakuten').classList.toggle('active', isHandakuten);
-                document.getElementById('toggleSmall').classList.toggle('active', isSmall);
-            }
+            const suffix = isKatakana ? 'Kata' : '';
+            const dakutenBtn = document.getElementById('toggleDakuten' + suffix);
+            const handakutenBtn = document.getElementById('toggleHandakuten' + suffix);
+            const smallBtn = document.getElementById('toggleSmall' + suffix);
+            
+            // 全ボタンからactiveを一旦消去
+            document.querySelectorAll('.modifier-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if(isDakuten && dakutenBtn) dakutenBtn.classList.add('active');
+            if(isHandakuten && handakutenBtn) handakutenBtn.classList.add('active');
+            if(isSmall && smallBtn) smallBtn.classList.add('active');
         }
 
-        // 初期化実行
         init();
     </script>
 </body>
