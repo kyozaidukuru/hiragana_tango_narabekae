@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出題 - ひらがな単語並べ替え</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="select-page">
+    <div class="select-container">
+        <div class="select-header">
+            <h1>📝 問題を作ろう</h1>
+            <p>相手に答えさせたい単語を選んでね</p>
+        </div>
+
+        <div class="select-content">
+            <div class="kana-table-section">
+                <!-- ひらがな五十音表 -->
+                <div class="kana-table" id="hiraganaTable">
+                    <h2>ひらがな</h2>
+                    <div class="kana-grid" id="hiraganaGrid"></div>
+                </div>
+
+                <!-- カタカナ五十音表 -->
+                <div class="kana-table" id="katakanaTable" style="display: none;">
+                    <h2>カタカナ</h2>
+                    <div class="kana-grid" id="katakanaGrid"></div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <h2>操作パネル</h2>
+
+                <!-- 文字修飾ボタン -->
+                <button class="control-btn" id="toggleDakuten">濁音（゛）</button>
+                <button class="control-btn" id="toggleHandakuten">半濁音（゜）</button>
+                <button class="control-btn" id="toggleSmall">小文字</button>
+                <button class="control-btn" id="toggleKatakana">カタカナに切替</button>
+
+                <hr style="margin: 20px 0; border: none; border-top: 2px dashed var(--primary-color);">
+
+                <!-- 選択された単語表示 -->
+                <div class="selected-word-display" id="selectedWordDisplay">
+                    <h3>選んだ文字:</h3>
+                    <div class="selected-word-cards" id="selectedCards"></div>
+                    <button class="remove-char-btn" id="removeLastBtn">最後の文字を消す</button>
+                </div>
+
+                <!-- 送信ボタン -->
+                <button class="submit-btn" id="submitBtn" disabled>問題を出す</button>
+                
+                <!-- トップに戻るリンク -->
+                <a href="index.html" style="text-align: center; display: block; margin-top: 15px; color: var(--primary-color); text-decoration: none; font-weight: bold;">← 戻る</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // 五十音表データ
+        const hiragana = [
+            'あ', 'い', 'う', 'え', 'お',
+            'か', 'き', 'く', 'け', 'こ',
+            'さ', 'し', 'す', 'せ', 'そ',
+            'た', 'ち', 'つ', 'て', 'と',
+            'な', 'に', 'ぬ', 'ね', 'の',
+            'は', 'ひ', 'ふ', 'へ', 'ほ',
+            'ま', 'み', 'む', 'め', 'も',
+            'や', 'ゆ', 'よ',
+            'ら', 'り', 'る', 'れ', 'ろ',
+            'わ', 'を', 'ん'
+        ];
+
+        const katakana = [
+            'ア', 'イ', 'ウ', 'エ', 'オ',
+            'カ', 'キ', 'ク', 'ケ', 'コ',
+            'サ', 'シ', 'ス', 'セ', 'ソ',
+            'タ', 'チ', 'ツ', 'テ', 'ト',
+            'ナ', 'ニ', 'ヌ', 'ネ', 'ノ',
+            'ハ', 'ヒ', 'フ', 'ヘ', 'ホ',
+            'マ', 'ミ', 'ム', 'メ', 'モ',
+            'ヤ', 'ユ', 'ヨ',
+            'ラ', 'リ', 'ル', 'レ', 'ロ',
+            'ワ', 'ヲ', 'ン'
+        ];
+
+        let selectedCharacters = [];
+        let isKatakana = false;
+        let isDakuten = false;
+        let isHandakuten = false;
+        let isSmall = false;
+
+        // 濁音・半濁音マッピング
+        const dakuntenMap = {
+            'か': 'が', 'き': 'ぎ', 'く': 'ぐ', 'け': 'げ', 'こ': 'ご',
+            'さ': 'ざ', 'し': 'じ', 'す': 'ず', 'せ': 'ぜ', 'そ': 'ぞ',
+            'た': 'だ', 'ち': 'ぢ', 'つ': 'づ', 'て': 'で', 'と': 'ど',
+            'は': 'ば', 'ひ': 'び', 'ふ': 'ぶ', 'へ': 'べ', 'ほ': 'ぼ'
+        };
+
+        const handakuntenMap = {
+            'は': 'ぱ', 'ひ': 'ぴ', 'ふ': 'ぷ', 'へ': 'ぺ', 'ほ': 'ぽ'
+        };
+
+        const smallMap = {
+            'あ': 'ぁ', 'い': 'ぃ', 'う': 'ぅ', 'え': 'ぇ', 'お': 'ぉ',
+            'や': 'ゃ', 'ゆ': 'ゅ', 'よ': 'ょ',
+            'わ': 'ゎ', 'つ': 'っ'
+        };
+
+        const katakanaSmallMap = {
+            'ア': 'ァ', 'イ': 'ィ', 'ウ': 'ゥ', 'エ': 'ェ', 'オ': 'ォ',
+            'ヤ': 'ャ', 'ユ': 'ュ', 'ヨ': 'ョ',
+            'ワ': 'ヮ', 'ツ': 'ッ'
+        };
+
+        const katakanaDakuntenMap = {
+            'カ': 'ガ', 'キ': 'ギ', 'ク': 'グ', 'ケ': 'ゲ', 'コ': 'ゴ',
+            'サ': 'ザ', 'シ': 'ジ', 'ス': 'ズ', 'セ': 'ゼ', 'ソ': 'ゾ',
+            'タ': 'ダ', 'チ': 'ヂ', 'ツ': 'ヅ', 'テ': 'デ', 'ト': 'ド',
+            'ハ': 'バ', 'ヒ': 'ビ', 'フ': 'ブ', 'ヘ': 'ベ', 'ホ': 'ボ'
+        };
+
+        const katakanaHandakuntenMap = {
+            'ハ': 'パ', 'ヒ': 'ピ', 'フ': 'プ', 'ヘ': 'ペ', 'ホ': 'ポ'
+        };
+
+        // 初期化
+        function init() {
+            renderKanaGrid('hiraganaGrid', hiragana);
+            renderKanaGrid('katakanaGrid', katakana);
+            updateControlButtons();
+        }
+
+        // 五十音表をレンダリング
+        function renderKanaGrid(gridId, kanaArray) {
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = '';
+
+            kanaArray.forEach(kana => {
+                const btn = document.createElement('button');
+                btn.className = 'kana-btn';
+                btn.textContent = kana;
+                btn.onclick = () => selectCharacter(kana);
+                grid.appendChild(btn);
+            });
+        }
+
+        // 文字を選択
+        function selectCharacter(char) {
+            let selectedChar = char;
+
+            // 修飾を適用
+            if (isDakuten && dakuntenMap[char]) {
+                selectedChar = dakuntenMap[char];
+            } else if (isHandakuten && handakuntenMap[char]) {
+                selectedChar = handakuntenMap[char];
+            }
+
+            if (isSmall && smallMap[char]) {
+                selectedChar = smallMap[char];
+            }
+
+            selectedCharacters.push(selectedChar);
+            updateDisplay();
+            isDakuten = false;
+            isHandakuten = false;
+            isSmall = false;
+            updateControlButtons();
+        }
+
+        // 表示を更新
+        function updateDisplay() {
+            const cardsContainer = document.getElementById('selectedCards');
+            cardsContainer.innerHTML = '';
+
+            selectedCharacters.forEach((char, index) => {
+                const card = document.createElement('div');
+                card.className = 'selected-card';
+                card.textContent = char;
+                cardsContainer.appendChild(card);
+            });
+
+            document.getElementById('submitBtn').disabled = selectedCharacters.length === 0;
+        }
+
+        // コントロールボタンを更新
+        function updateControlButtons() {
+            document.getElementById('toggleDakuten').classList.toggle('active', isDakuten);
+            document.getElementById('toggleHandakuten').classList.toggle('active', isHandakuten);
+            document.getElementById('toggleSmall').classList.toggle('active', isSmall);
+            document.getElementById('toggleKatakana').classList.toggle('active', isKatakana);
+        }
+
+        // イベントリスナー
+        document.getElementById('toggleDakuten').addEventListener('click', () => {
+            isDakuten = !isDakuten;
+            isHandakuten = false;
+            updateControlButtons();
+        });
+
+        document.getElementById('toggleHandakuten').addEventListener('click', () => {
+            isHandakuten = !isHandakuten;
+            isDakuten = false;
+            updateControlButtons();
+        });
+
+        document.getElementById('toggleSmall').addEventListener('click', () => {
+            isSmall = !isSmall;
+            updateControlButtons();
+        });
+
+        document.getElementById('toggleKatakana').addEventListener('click', () => {
+            isKatakana = !isKatakana;
+            document.getElementById('hiraganaTable').style.display = isKatakana ? 'none' : 'block';
+            document.getElementById('katakanaTable').style.display = isKatakana ? 'block' : 'none';
+            updateControlButtons();
+        });
+
+        document.getElementById('removeLastBtn').addEventListener('click', () => {
+            selectedCharacters.pop();
+            updateDisplay();
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            // sessionStorageに選択した文字を保存
+            sessionStorage.setItem('selectedWord', JSON.stringify(selectedCharacters));
+            window.location.href = 'play.html';
+        });
+
+        // 初期化実行
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解答 - ひらがな単語並べ替え</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="play-page">
+    <div class="play-container">
+        <div class="play-header">
+            <h1>🎲 問題に答えよう</h1>
+            <p class="play-instruction">バラバラな文字を並べ替えて、単語を当てよう！</p>
+        </div>
+
+        <div class="cards-container" id="cardsContainer">
+            <!-- カードがここに配置される -->
+        </div>
+
+        <div class="play-buttons">
+            <button class="btn-answer" id="answerBtn">答え</button>
+            <button class="btn-back" id="backBtn">← 戻る</button>
+        </div>
+    </div>
+
+    <!-- 答え表示モーダル -->
+    <div class="modal" id="answerModal">
+        <div class="modal-content">
+            <h2>🎉 正解！</h2>
+            <div class="answer-display" id="answerDisplay"></div>
+            <p class="modal-text">よくできましたね！</p>
+            <p class="continue-hint">画面をタップして続ける</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let cards = [];
+        let selectedWord = [];
+
+        // 初期化
+        function init() {
+            const wordData = sessionStorage.getItem('selectedWord');
+            if (!wordData) {
+                alert('問題が選択されていません。');
+                window.location.href = 'select.html';
+                return;
+            }
+
+            selectedWord = JSON.parse(wordData);
+            createCards();
+            setupEventListeners();
+        }
+
+        // カードを作成
+        function createCards() {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+
+            // カードをシャッフルして配置
+            const shuffled = [...selectedWord].sort(() => Math.random() - 0.5);
+
+            shuffled.forEach((char, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.textContent = char;
+                card.id = 'card-' + index;
+                card.draggable = true;
+
+                // ランダムな位置に配置
+                const randomX = Math.random() * (container.offsetWidth - 100);
+                const randomY = Math.random() * (container.offsetHeight - 100);
+                card.style.left = randomX + 'px';
+                card.style.top = randomY + 'px';
+
+                // ドラッグイベント
+                card.addEventListener('dragstart', handleDragStart);
+                card.addEventListener('dragend', handleDragEnd);
+
+                // タッチイベント（タブレット対応）
+                card.addEventListener('touchstart', handleTouchStart);
+                card.addEventListener('touchmove', handleTouchMove);
+                card.addEventListener('touchend', handleTouchEnd);
+
+                container.appendChild(card);
+                cards.push({
+                    element: card,
+                    character: char,
+                    x: randomX,
+                    y: randomY
+                });
+            });
+        }
+
+        // ドラッグハンドラー
+        let draggedCard = null;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        function handleDragStart(e) {
+            draggedCard = this;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragEnd(e) {
+            draggedCard = null;
+        }
+
+        // タッチハンドラー（タブレット対応）
+        let touchCard = null;
+
+        function handleTouchStart(e) {
+            touchCard = this;
+            const touch = e.touches[0];
+            offsetX = touch.clientX - this.getBoundingClientRect().left;
+            offsetY = touch.clientY - this.getBoundingClientRect().top;
+        }
+
+        function handleTouchMove(e) {
+            if (!touchCard) return;
+
+            const touch = e.touches[0];
+            const container = document.getElementById('cardsContainer');
+            const containerRect = container.getBoundingClientRect();
+
+            let x = touch.clientX - containerRect.left - offsetX;
+            let y = touch.clientY - containerRect.top - offsetY;
+
+            // 境界チェック
+            x = Math.max(0, Math.min(x, containerRect.width - touchCard.offsetWidth));
+            y = Math.max(0, Math.min(y, containerRect.height - touchCard.offsetHeight));
+
+            touchCard.style.left = x + 'px';
+            touchCard.style.top = y + 'px';
+        }
+
+        function handleTouchEnd(e) {
+            touchCard = null;
+        }
+
+        // イベントリスナーの設定
+        function setupEventListeners() {
+            document.getElementById('answerBtn').addEventListener('click', showAnswer);
+            document.getElementById('backBtn').addEventListener('click', goBack);
+            document.getElementById('answerModal').addEventListener('click', handleModalClick);
+        }
+
+        // 答えを表示
+        function showAnswer() {
+            const answer = selectedWord.join('');
+            document.getElementById('answerDisplay').textContent = answer;
+            document.getElementById('answerModal').classList.add('active');
+
+            // 正解の順に並べ替え
+            const container = document.getElementById('cardsContainer');
+            const rect = container.getBoundingClientRect();
+            const spacing = (rect.width - 100) / (selectedWord.length + 1);
+
+            cards.forEach((card, index) => {
+                const targetX = (index + 1) * spacing;
+                const targetY = (rect.height - 100) / 2;
+                card.element.style.transition = 'all 0.5s ease';
+                card.element.style.left = targetX + 'px';
+                card.element.style.top = targetY + 'px';
+            });
+        }
+
+        // モーダルをクリック
+        function handleModalClick() {
+            document.getElementById('answerModal').classList.remove('active');
+            // select.htmlに戻る
+            sessionStorage.removeItem('selectedWord');
+            window.location.href = 'select.html';
+        }
+
+        // 戻る
+        function goBack() {
+            sessionStorage.removeItem('selectedWord');
+            window.location.href = 'select.html';
+        }
+
+        // 初期化実行
+        init();
+    </script>
+</body>
+</html>
