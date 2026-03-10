@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>解答 - ひらがな単語並べ替え</title>
+    <title>解答 - ひらがなかたかなならびかえ</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="play-page">
     <div class="play-container">
         <div class="play-header">
-            <h1>🎲 問題に答えよう</h1>
-            <p class="play-instruction">バラバラな文字を並べ替えて、単語を当てよう！</p>
+            <h1>🎲 ならびかえて　ことばにしよう</h1>
         </div>
 
         <div class="cards-container" id="cardsContainer">
@@ -18,18 +17,18 @@
         </div>
 
         <div class="play-buttons">
-            <button class="btn-answer" id="answerBtn">答え</button>
-            <button class="btn-back" id="backBtn">← 戻る</button>
+            <button class="btn-answer" id="answerBtn">こたえ</button>
+            <button class="btn-back" id="backBtn">← もどる</button>
         </div>
     </div>
 
     <!-- 答え表示モーダル -->
     <div class="modal" id="answerModal">
         <div class="modal-content">
-            <h2>🎉 正解！</h2>
+            <h2>せいかいは</h2>
             <div class="answer-display" id="answerDisplay"></div>
             <p class="modal-text">よくできましたね！</p>
-            <p class="continue-hint">画面をタップして続ける</p>
+            <p class="continue-hint">がめんをたっぷして　つづける</p>
         </div>
     </div>
 
@@ -37,12 +36,15 @@
     <script>
         let cards = [];
         let selectedWord = [];
+        let draggedCard = null;
+        let offsetX = 0;
+        let offsetY = 0;
 
         // 初期化
         function init() {
             const wordData = sessionStorage.getItem('selectedWord');
             if (!wordData) {
-                alert('問題が選択されていません。');
+                alert('もんだいが　えらばれていません。');
                 window.location.href = 'select.html';
                 return;
             }
@@ -65,7 +67,6 @@
                 card.className = 'card';
                 card.textContent = char;
                 card.id = 'card-' + index;
-                card.draggable = true;
 
                 // ランダムな位置に配置
                 const randomX = Math.random() * (container.offsetWidth - 100);
@@ -73,11 +74,13 @@
                 card.style.left = randomX + 'px';
                 card.style.top = randomY + 'px';
 
-                // ドラッグイベント
-                card.addEventListener('dragstart', handleDragStart);
-                card.addEventListener('dragend', handleDragEnd);
+                // マウスイベント
+                card.addEventListener('mousedown', handleMouseDown);
+                card.addEventListener('mousemove', handleMouseMove);
+                card.addEventListener('mouseup', handleMouseUp);
+                card.addEventListener('mouseleave', handleMouseUp);
 
-                // タッチイベント（タブレット対応）
+                // タッチイベント
                 card.addEventListener('touchstart', handleTouchStart);
                 card.addEventListener('touchmove', handleTouchMove);
                 card.addEventListener('touchend', handleTouchEnd);
@@ -92,33 +95,53 @@
             });
         }
 
-        // ドラッグハンドラー
-        let draggedCard = null;
-        let offsetX = 0;
-        let offsetY = 0;
-
-        function handleDragStart(e) {
+        // マウスイベント
+        function handleMouseDown(e) {
             draggedCard = this;
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', this.innerHTML);
+            const rect = this.getBoundingClientRect();
+            const container = document.getElementById('cardsContainer');
+            const containerRect = container.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+            this.style.zIndex = 1000;
         }
 
-        function handleDragEnd(e) {
-            draggedCard = null;
+        function handleMouseMove(e) {
+            if (!draggedCard || draggedCard !== this) return;
+
+            const container = document.getElementById('cardsContainer');
+            const containerRect = container.getBoundingClientRect();
+
+            let x = e.clientX - containerRect.left - offsetX;
+            let y = e.clientY - containerRect.top - offsetY;
+
+            // 境界チェック
+            x = Math.max(0, Math.min(x, containerRect.width - this.offsetWidth));
+            y = Math.max(0, Math.min(y, containerRect.height - this.offsetHeight));
+
+            this.style.left = x + 'px';
+            this.style.top = y + 'px';
         }
 
-        // タッチハンドラー（タブレット対応）
-        let touchCard = null;
+        function handleMouseUp(e) {
+            if (draggedCard) {
+                draggedCard.style.zIndex = 'auto';
+                draggedCard = null;
+            }
+        }
 
+        // タッチイベント
         function handleTouchStart(e) {
-            touchCard = this;
+            draggedCard = this;
             const touch = e.touches[0];
-            offsetX = touch.clientX - this.getBoundingClientRect().left;
-            offsetY = touch.clientY - this.getBoundingClientRect().top;
+            const rect = this.getBoundingClientRect();
+            offsetX = touch.clientX - rect.left;
+            offsetY = touch.clientY - rect.top;
+            this.style.zIndex = 1000;
         }
 
         function handleTouchMove(e) {
-            if (!touchCard) return;
+            if (!draggedCard || draggedCard !== this) return;
 
             const touch = e.touches[0];
             const container = document.getElementById('cardsContainer');
@@ -128,15 +151,18 @@
             let y = touch.clientY - containerRect.top - offsetY;
 
             // 境界チェック
-            x = Math.max(0, Math.min(x, containerRect.width - touchCard.offsetWidth));
-            y = Math.max(0, Math.min(y, containerRect.height - touchCard.offsetHeight));
+            x = Math.max(0, Math.min(x, containerRect.width - this.offsetWidth));
+            y = Math.max(0, Math.min(y, containerRect.height - this.offsetHeight));
 
-            touchCard.style.left = x + 'px';
-            touchCard.style.top = y + 'px';
+            this.style.left = x + 'px';
+            this.style.top = y + 'px';
         }
 
         function handleTouchEnd(e) {
-            touchCard = null;
+            if (draggedCard) {
+                draggedCard.style.zIndex = 'auto';
+                draggedCard = null;
+            }
         }
 
         // イベントリスナーの設定
