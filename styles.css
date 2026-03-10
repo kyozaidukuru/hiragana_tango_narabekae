@@ -875,3 +875,35 @@ flex-direction: row-reverse;   /* 1. 左から右ではなく、右から左に�
         font-size: 1.4em;
     }
 }
+/* --- styles.css の一番下に追加 --- */
+
+/* 行の基本設定（HTMLの並び順通りに表示） */
+.kana-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 12px;
+    flex-wrap: nowrap; /* 折り返しを禁止して列を揃える */
+}
+
+/* 空白を維持するための見えないカード */
+.empty-card {
+    width: 70px;
+    height: 70px;
+    visibility: hidden; /* 非表示だが、幅と高さは確保する */
+}
+
+/* タブレット・スマホ用のサイズ調整（既存のボタンサイズに合わせる） */
+@media (max-width: 1024px) {
+    .empty-card {
+        width: 65px;
+        height: 65px;
+    }
+}
+
+@media (max-width: 600px) {
+    .empty-card {
+        width: 55px;
+        height: 55px;
+    }
+}
