@@ -173,6 +173,7 @@
         }
 
         // 答えを表示
+        // 答えを表示
         function showAnswer() {
             const answer = selectedWord.join('');
             document.getElementById('answerDisplay').textContent = answer;
@@ -181,15 +182,33 @@
             // 正解の順に並べ替え
             const container = document.getElementById('cardsContainer');
             const rect = container.getBoundingClientRect();
-            const spacing = (rect.width - 100) / (selectedWord.length + 1);
+            
+            const cardWidth = 90; // カードの横幅 (CSSの .card の幅に合わせる)
+            const gap = 15;       // カード同士の間隔
+            const totalWidth = selectedWord.length * cardWidth + (selectedWord.length - 1) * gap;
+            
+            // コンテナの中央に配置するための開始X座標を計算
+            const startX = (rect.width - totalWidth) / 2;
+            const targetY = (rect.height - cardWidth) / 2;
 
-            cards.forEach((card, index) => {
-                const targetX = (index + 1) * spacing;
-                const targetY = (rect.height - 100) / 2;
-                card.element.style.transition = 'all 0.5s ease';
-                card.element.style.left = targetX + 'px';
-                card.element.style.top = targetY + 'px';
+            // selectedWord（正しい順番）の文字と一致するように cards を並べ替える
+            // シャッフル前の正しい文字並びに対応させるための処理
+            selectedWord.forEach((correctChar, index) => {
+                // まだ整列に使われていない、かつ文字が一致するカードを探す
+                const cardObj = cards.find(c => c.character === correctChar && !c.isAligned);
+                if (cardObj) {
+                    cardObj.isAligned = true; // 割り当て済みフラグ
+                    const targetX = startX + index * (cardWidth + gap);
+                    
+                    cardObj.element.style.transition = 'all 0.5s ease';
+                    cardObj.element.style.left = targetX + 'px';
+                    cardObj.element.style.top = targetY + 'px';
+                    cardObj.element.style.zIndex = 100; // 重なり順を前面に
+                }
             });
+
+            // 処理が終わったらフラグをリセット（もう一度遊ぶときのため）
+            cards.forEach(c => delete c.isAligned);
         }
 
         // モーダルをクリック
