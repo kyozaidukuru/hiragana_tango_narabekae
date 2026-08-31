@@ -171,14 +171,14 @@
             document.getElementById('answerModal').addEventListener('click', handleModalClick);
         }
 
+        
         // 答えを表示
         // 答えを表示
         function showAnswer() {
             const answer = selectedWord.join('');
             document.getElementById('answerDisplay').textContent = answer;
-            document.getElementById('answerModal').classList.add('active');
 
-            // 正解の順に並べ替え
+            // 正解の順に並べ替えのアニメーションを実行
             const container = document.getElementById('cardsContainer');
             const rect = container.getBoundingClientRect();
             
@@ -191,9 +191,7 @@
             const targetY = (rect.height - cardWidth) / 2;
 
             // selectedWord（正しい順番）の文字と一致するように cards を並べ替える
-            // シャッフル前の正しい文字並びに対応させるための処理
             selectedWord.forEach((correctChar, index) => {
-                // まだ整列に使われていない、かつ文字が一致するカードを探す
                 const cardObj = cards.find(c => c.character === correctChar && !c.isAligned);
                 if (cardObj) {
                     cardObj.isAligned = true; // 割り当て済みフラグ
@@ -206,8 +204,13 @@
                 }
             });
 
-            // 処理が終わったらフラグをリセット（もう一度遊ぶときのため）
+            // 処理が終わったらフラグをリセット
             cards.forEach(c => delete c.isAligned);
+
+            // 1.5秒（1500ミリ秒）のタイムラグを設けてからポップアップを表示
+            setTimeout(() => {
+                document.getElementById('answerModal').classList.add('active');
+            }, 1500);
         }
 
         // モーダルをクリック
